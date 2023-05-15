@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Windows.Input;
+﻿using System.Collections.Generic;
 using TwitchKeyboard.Classes.Controllers;
-using TwitchKeyboard.Classes.RuleControllers;
 using TwitchKeyboard.Classes.Rules;
 using TwitchKeyboard.Enums;
 using WindowsInput;
-using WindowsInput.Native;
 
 namespace TwitchKeyboard.Classes.Managers
 {

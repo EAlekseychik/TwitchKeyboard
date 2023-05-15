@@ -7,30 +7,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TwitchKeyboard.Classes;
 using TwitchKeyboard.Classes.Controllers;
 using TwitchKeyboard.Classes.Managers;
 using TwitchKeyboard.Classes.Rules;
 using TwitchKeyboard.Classes.Services;
-using TwitchKeyboard.Components.RuleLists;
 using TwitchKeyboard.Enums;
-using TwitchLib.Client;
 using TwitchLib.Client.Models;
-using WindowsInput;
-using WindowsInput.Native;
 
 namespace TwitchKeyboard.Windows
 {
@@ -107,7 +96,7 @@ namespace TwitchKeyboard.Windows
             notificationPlayer.Open(new Uri(settings.notificationFile, UriKind.Relative));
             notificationPlayer.Volume = settings.notificationVolume/100.0;
             notificationFileButton.Content = notificationPlayer.Source == null ?
-                "Select file" : System.IO.Path.GetFileName(notificationPlayer.Source.ToString());
+                "Select file" : Path.GetFileName(notificationPlayer.Source.ToString());
 
             // Create managers
             managers[(int)ManagerType.KEYBOARD] = new KeyRuleManager();
@@ -164,8 +153,6 @@ namespace TwitchKeyboard.Windows
             volumeSfxRuleSlider.Value = settings.mainSfxVolume;
 
             Task.Run(checkUpdate);
-
-            GC.Collect();
         }
 
         private void checkUpdate ()
@@ -335,7 +322,6 @@ namespace TwitchKeyboard.Windows
             if (File.Exists("./settings.json"))
             {
                 settings = JsonConvert.DeserializeObject<UserSettings>(File.ReadAllText("./settings.json"));
-                Helper.settings = settings;
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(settings.lang);
                 InitializeComponent();
                 twitchConnect.SetChannel(settings.channel);
@@ -349,8 +335,6 @@ namespace TwitchKeyboard.Windows
                 settings.sfxRulesPreset.Add("Default", new());
                 settings.webRulesPreset.Add("Default", new());
                 settings.cmdRulesPreset.Add("Default", new());
-
-                Helper.settings = settings;
 
                 File.WriteAllText("./settings.json", JsonConvert.SerializeObject(settings));
                 InitializeComponent();
@@ -387,7 +371,7 @@ namespace TwitchKeyboard.Windows
             var theme = paletteHelper.GetTheme();
             theme.SetBaseTheme(baseTheme);
             theme.SetPrimaryColor(
-                swatchesProvider.Swatches.FirstOrDefault(sw => sw.Name == settings.primaryColor).PrimaryHues[5].Color
+                swatchesProvider.Swatches.First(sw => sw.Name == settings.primaryColor).PrimaryHues[5].Color
             );
             paletteHelper.SetTheme(theme);
         }
@@ -564,51 +548,6 @@ namespace TwitchKeyboard.Windows
 
             if (reenable)
                 managers[(int)managerType].Enable();
-        }
-
-
-        private async void twitchConnect_OnActionClick(object sender, string channelName)
-        {
-            if (twitch.connectionState != TwitchConnectionState.JOINED)
-            {
-                await twitch.JoinChannel(channelName);
-            }
-            else
-            {
-                twitch.Disconnect();
-            }            
-        }
-
-
-
-        private void keyRuleList_OnRulesChanged(object sender, List<KeyRule> rules)
-        {
-            InitManager<KeyRuleController, KeyRule>(ManagerType.KEYBOARD, settings.keyRulesPreset);
-            SaveSettings();
-        }
-
-        private void mouseRuleList_OnRulesChanged(object sender, List<MouseRule> rules)
-        {
-            InitManager<MouseRuleController, MouseRule>(ManagerType.MOUSE, settings.mouseRulesPreset);
-            SaveSettings();
-        }
-
-        private void sfxRuleList_OnRulesChanged(object sender, List<SfxRule> rules)
-        {
-            InitManager<SfxRuleController, SfxRule>(ManagerType.SFX, settings.sfxRulesPreset);
-            SaveSettings();
-        }
-
-        private void webRuleList_OnRulesChanged(object sender, List<WebRule> rules)
-        {
-            InitManager<WebRuleController, WebRule>(ManagerType.WEB, settings.webRulesPreset);
-            SaveSettings();
-        }
-
-        private void cmdRuleList_OnRulesChanged(object sender, List<CmdRule> rules)
-        {
-            InitManager<CmdRuleController, CmdRule>(ManagerType.CMD, settings.cmdRulesPreset);
-            SaveSettings();
         }
 
 

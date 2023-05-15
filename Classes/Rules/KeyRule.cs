@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TwitchKeyboard.Enums;
-using WindowsInput.Native;
+using WindowsInput;
 
 namespace TwitchKeyboard.Classes.Rules
 {
@@ -17,13 +14,14 @@ namespace TwitchKeyboard.Classes.Rules
 
         public override string GetName()
         {
-            string keysDesc = "";
+            var keysDesc = new StringBuilder();
             for (int i = 0; i < keys.Count; i++)
             {
-                keysDesc += $"{KeyInterop.KeyFromVirtualKey((int)keys[i])}+";
+                keysDesc.Append($"{KeyInterop.KeyFromVirtualKey((int)keys[i])}+");
             }
+            keysDesc.Length--;
 
-            return keysDesc[0..^1];
+            return keysDesc.ToString();
         }
     }
 }

@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TwitchKeyboard.Classes.Services
 {
@@ -15,7 +13,6 @@ namespace TwitchKeyboard.Classes.Services
         readonly HttpListener listener = new();
         readonly List<LaunchedRuleIndicator> indicators = new();
 
-        Thread listenThread;
         bool dontStop = true;
 
         const string addr = "http://localhost:51473/";
@@ -24,7 +21,7 @@ namespace TwitchKeyboard.Classes.Services
         {
             listener.Prefixes.Add(addr);
             listener.Start();
-            listenThread = new Thread(this.Listen);
+            var listenThread = new Thread(this.Listen);
             listenThread.Start();
         }
 
@@ -55,7 +52,6 @@ namespace TwitchKeyboard.Classes.Services
             while (dontStop)
             {
                 context = listener.GetContext();
-                Response(context);
 
                 string url = context.Request.RawUrl.TrimEnd('/');
                 var splittedUrl = url.Split('/');
@@ -88,7 +84,7 @@ namespace TwitchKeyboard.Classes.Services
             }
         }
 
-        private void SendFile (string file, HttpListenerContext context)
+        private static void SendFile (string file, HttpListenerContext context)
         {
             context.Response.SendChunked = false;
 
@@ -115,12 +111,6 @@ namespace TwitchKeyboard.Classes.Services
             }
 
             bw.Close();
-        }
-
-        private void Response(Object state)
-        {
-            HttpListenerContext context = (HttpListenerContext)state;
-            
         }
     }
 }

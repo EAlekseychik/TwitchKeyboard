@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwitchKeyboard.Enums;
-using WindowsInput.Native;
-
-namespace TwitchKeyboard.Classes.Rules
+﻿namespace TwitchKeyboard.Classes.Rules
 {
     public class CmdRule : BaseRule
     {

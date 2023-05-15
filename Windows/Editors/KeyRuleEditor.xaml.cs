@@ -1,22 +1,10 @@
-﻿using Classes.APIModels.TwitchGQL;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TwitchKeyboard.Classes;
 using TwitchKeyboard.Classes.Rules;
 using TwitchKeyboard.Components;
-using WindowsInput.Native;
+using WindowsInput;
 
 namespace TwitchKeyboard.Windows.Editors
 {
@@ -122,17 +110,6 @@ namespace TwitchKeyboard.Windows.Editors
             
             enableKeyCatch = false;
             e.Handled = true;
-        }
-
-        private void keysContainer_OnAddKeyPressed(object sender)
-        {
-            enableKeyCatch = true;
-        }
-
-        private void keysContainer_OnKeyRemove(object sender, Key k)
-        {
-            keysContainer.RemoveKey(k);
-            rule.keys.Remove((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
         }
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)

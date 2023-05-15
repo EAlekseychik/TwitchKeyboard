@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <ApplicationIcon>logo.ico</ApplicationIcon>
@@ -20,10 +19,10 @@
     <PackageId>Twitch Keyboard</PackageId>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/VirtualZer0/TwitchKeyboard</PackageProjectUrl>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
     <PackageTags>chat;keyboard;twitch;csharp;input;wpf;dotnet5;remote;cmd;http;sfx;mouse</PackageTags>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
@@ -31,7 +30,6 @@
     <DebugSymbols>true</DebugSymbols>
     <ErrorReport>none</ErrorReport>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -39,7 +37,6 @@
     <DebugSymbols>false</DebugSymbols>
     <ErrorReport>none</ErrorReport>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -48,42 +45,38 @@
     <ErrorReport>none</ErrorReport>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Docs\RU\**" />
     <EmbeddedResource Remove="Docs\RU\**" />
     <None Remove="Docs\RU\**" />
     <Page Remove="Docs\RU\**" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\tray.ico" />
     <None Include="Resources\logo.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="5.7.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="H.InputSimulator" Version="1.2.1" />
+    <PackageReference Include="H.InputSimulator" Version="1.3.0" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="TwitchLib" Version="3.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="TwitchLib" Version="3.5.3" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.1" />
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\tray.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Components\RuleLists\KeyRuleList - Копировать.xaml.cs">
       <SubType>Code</SubType>
@@ -100,7 +93,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources - Копировать.resx">
       <LastGenOutput>Resources - Копировать.Designer.cs</LastGenOutput>
@@ -111,14 +103,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.ru-RU.resx">
-      <Generator></Generator>
+      <Generator>
+      </Generator>
     </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Notifications\static\" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="logo.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -154,5 +145,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>

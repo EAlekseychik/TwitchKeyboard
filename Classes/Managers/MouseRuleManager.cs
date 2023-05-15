@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Windows.Input;
 using TwitchKeyboard.Classes.Controllers;
-using TwitchKeyboard.Classes.RuleControllers;
 using TwitchKeyboard.Classes.Rules;
 using TwitchKeyboard.Enums;
 using WindowsInput;
-using WindowsInput.Native;
 
 namespace TwitchKeyboard.Classes.Managers
 {
@@ -74,8 +67,8 @@ namespace TwitchKeyboard.Classes.Managers
             else
             {
                 simulator.Mouse.MoveMouseBy(
-                    (int)Math.Ceiling((double)mouseRule.speedX / 1000 * elapsedTime),
-                    (int)Math.Ceiling((double)mouseRule.speedY / 1000 * elapsedTime)
+                    (int)Math.Ceiling(mouseRule.speedX / 1000 * elapsedTime),
+                    (int)Math.Ceiling(mouseRule.speedY / 1000 * elapsedTime)
                 );
             }
 
@@ -95,8 +88,6 @@ namespace TwitchKeyboard.Classes.Managers
                     case MouseRuleType.RightButton: simulator.Mouse.RightButtonClick(); break;
                     case MouseRuleType.MiddleButton: simulator.Mouse.MiddleButtonClick(); break;
                 }
-
-                return;
             }
 
 
@@ -118,8 +109,6 @@ namespace TwitchKeyboard.Classes.Managers
                 {
                     rule.curSpamDelay--;
                 }
-
-                return;
             }
 
             // Double click mode
@@ -131,8 +120,6 @@ namespace TwitchKeyboard.Classes.Managers
                     case MouseRuleType.RightButton: simulator.Mouse.RightButtonDoubleClick(); break;
                     case MouseRuleType.MiddleButton: simulator.Mouse.MiddleButtonDoubleClick(); break;
                 }
-
-                return;
             }
 
             // Hold button mode

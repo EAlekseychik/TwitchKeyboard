@@ -1,10 +1,4 @@
-﻿using Classes.APIModels.TwitchGQL;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows.Media;
 
 namespace TwitchKeyboard.Classes
